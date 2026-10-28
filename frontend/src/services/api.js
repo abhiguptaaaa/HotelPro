@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// In production (Vercel), VITE_API_URL must be set in Vercel dashboard to your Render URL.
-// Fallback order: env var → production Render URL → local dev
 const API = axios.create({
   baseURL:
     import.meta.env.VITE_API_URL ||
@@ -10,7 +8,6 @@ const API = axios.create({
       : 'http://localhost:5000/api'),
 });
 
-// Automatically inject JWT token into authorization header
 API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -22,7 +19,6 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for consistent error handling
 API.interceptors.response.use(
   (response) => response,
   (error) => {

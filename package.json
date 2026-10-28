@@ -9,7 +9,7 @@
     "seed:destroy": "cd backend && npm run seed:destroy",
     "start:backend": "cd backend && npm run dev",
     "start:frontend": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build"
+    "build": "cd frontend && npm install && npm run build"
   },
   "keywords": [
     "hotel-management",
