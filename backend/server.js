@@ -5,7 +5,6 @@ const path = require('path');
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
-// Route imports
 const authRoutes = require('./routes/authRoutes');
 const hotelRoutes = require('./routes/hotelRoutes');
 const roomRoutes = require('./routes/roomRoutes');
@@ -17,26 +16,21 @@ const reviewRoutes = require('./routes/reviewRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 
-// Load environment variables
 dotenv.config();
 
-// Connect to MongoDB
 connectDB();
 
 const app = express();
 
-// Middleware
 app.use(cors({
-  origin: '*', // Allow frontend development access
+  origin: '*',
   credentials: true,
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Serve static uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'healthy',
@@ -46,7 +40,6 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Mount Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/hotel', hotelRoutes);
 app.use('/api/rooms', roomRoutes);
@@ -58,13 +51,15 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Error Handling Middlewares
 app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 HotelPro Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  console.log(`🌐 API Endpoint: http://localhost:${PORT}/api/health`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`HotelPro Server running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
