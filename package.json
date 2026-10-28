@@ -1,0 +1,27 @@
+{
+  "name": "hotelpro-fullstack",
+  "version": "1.0.0",
+  "description": "HotelPro - Enterprise Hotel Management & Booking Solution (MERN Stack)",
+  "scripts": {
+    "dev": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "seed": "cd backend && npm run seed",
+    "seed:destroy": "cd backend && npm run seed:destroy",
+    "start:backend": "cd backend && npm run dev",
+    "start:frontend": "cd frontend && npm run dev",
+    "build": "cd frontend && npm run build"
+  },
+  "keywords": [
+    "hotel-management",
+    "mern",
+    "hospitality",
+    "booking",
+    "fullstack",
+    "placement-ready"
+  ],
+  "author": "HotelPro Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}
